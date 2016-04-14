@@ -1,4 +1,4 @@
-package com.patrikv;
+package com.kingofthehill;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +13,13 @@ public class Lap {
     private final long lapTime;
     private final LocalDateTime ts;
 
+
     public Lap() {
         this("", 0l, 0l, 0l, LocalDateTime.now());
+    }
+
+    public Lap(String driver, long transponder, long lapNr, long lapTime) {
+        this(driver, transponder, lapNr, lapTime, LocalDateTime.now());
     }
 
     public Lap(String driver, long transponder, long lapNr, long lapTime, LocalDateTime ts) {

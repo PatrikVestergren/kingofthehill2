@@ -1,4 +1,4 @@
-package com.patrikv;
+package com.kingofthehill;
 
 import org.springframework.stereotype.Repository;
 

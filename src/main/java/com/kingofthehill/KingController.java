@@ -1,4 +1,4 @@
-package com.patrikv;
+package com.kingofthehill;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

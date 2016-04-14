@@ -1,4 +1,4 @@
-package com.patrikv;
+package com.kingofthehill;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;

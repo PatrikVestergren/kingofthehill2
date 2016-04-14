@@ -1,4 +1,4 @@
-package com.patrikv;
+package com.kingofthehill;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

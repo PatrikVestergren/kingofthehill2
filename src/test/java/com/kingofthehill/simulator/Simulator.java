@@ -1,4 +1,4 @@
-package com.patrikv.simulator;
+package com.kingofthehill.simulator;
 
 import java.util.Arrays;
 

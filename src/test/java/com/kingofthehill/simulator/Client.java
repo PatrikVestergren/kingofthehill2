@@ -1,4 +1,4 @@
-package com.patrikv.simulator;
+package com.kingofthehill.simulator;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;

@@ -1,8 +1,8 @@
-package com.patrikv.simulator;
+package com.kingofthehill.simulator;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.patrikv.Lap;
+import com.kingofthehill.Lap;
 
 import java.io.IOException;
 import java.io.StringWriter;
