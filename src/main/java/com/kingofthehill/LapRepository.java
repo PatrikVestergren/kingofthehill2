@@ -1,7 +1,5 @@
 package com.kingofthehill;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,6 @@ import java.util.List;
  * Created by patrikv on 06/03/16.
  */
 
-@Repository
 public class LapRepository {
     private final List<Lap> laps = new ArrayList<>();
 

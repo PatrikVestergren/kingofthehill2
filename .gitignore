@@ -1,1 +1,7 @@
 .idea/
+dependency-reduced-pom.xml
+target
+/**/node_modules
+/**/dist
+/**/temp
+.DS_Store
