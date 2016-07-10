@@ -5,3 +5,5 @@ target
 /**/dist
 /**/temp
 .DS_Store
+'mvnw' 
+'mvnw.cmd' 
