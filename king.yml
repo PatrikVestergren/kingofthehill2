@@ -1,5 +1,5 @@
 server:
-  rootPath: /hello/
+  rootPath: /king/
   applicationConnectors:
   - type: http
     port: 8080

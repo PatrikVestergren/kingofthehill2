@@ -7,7 +7,7 @@ import io.dropwizard.db.DataSourceFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-public class KingofthehillConfiguration extends Configuration {
+public class KingoConfiguration extends Configuration {
 
 
     @Valid

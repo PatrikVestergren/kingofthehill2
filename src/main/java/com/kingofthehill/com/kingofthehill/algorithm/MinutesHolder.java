@@ -3,7 +3,7 @@ package com.kingofthehill.com.kingofthehill.algorithm;
 /**
  * Created by patrikv on 08/04/16.
  */
-import com.kingofthehill.Lap;
+import com.kingofthehill.repository.model.Lap;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
