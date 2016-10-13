@@ -1,48 +1,25 @@
 package com.kingofthehill.repository.model;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
- * Created by patrikv on 06/03/16.
+ * Incomming Lap
  */
 public class Lap {
 
-    private Integer id;
     private final String driver;
     private final long transponder;
-    private final long lapNr;
+    private final int lapNr;
     private final long lapTime;
-    private LocalDateTime time;
 
 
     public Lap() {
-        this(null, "", 0l, 0l, 0l, null);
+        this("", 0l, 0, 0l);
     }
 
-    public Lap(Integer id, String driver, long transponder, long lapNr, long lapTime, Timestamp timestamp) {
-        this.id = id;
+    public Lap(String driver, long transponder, int lapNr, long lapTime) {
         this.driver = driver;
         this.transponder = transponder;
         this.lapNr = lapNr;
         this.lapTime = lapTime;
-        this.time = toLocalDateTime(timestamp);
-    }
-
-    public Lap(String name, long transponder, long lapNr, long lapTime) {
-        this(null, name, transponder, lapNr, lapTime, null);
-    }
-
-    private LocalDateTime toLocalDateTime(Timestamp timestamp) {
-        if (timestamp == null) return null;
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        String dateStr = sdf.format(timestamp);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
-        return LocalDateTime.parse(dateStr, dtf);
     }
 
     public String getDriver() {
@@ -53,7 +30,7 @@ public class Lap {
         return transponder;
     }
 
-    public long getLapNr() {
+    public int getLapNr() {
         return lapNr;
     }
 
@@ -61,23 +38,13 @@ public class Lap {
         return lapTime;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public LocalDateTime getTime() {
-        return time;
-    }
-
     @Override
     public String toString() {
         return "Lap{" +
-                "id=" + id +
-                ", driver='" + driver + '\'' +
+                "driver='" + driver + '\'' +
                 ", transponder=" + transponder +
                 ", lapNr=" + lapNr +
                 ", lapTime=" + lapTime +
-                ", time=" + time +
                 '}';
     }
 
@@ -91,20 +58,16 @@ public class Lap {
         if (transponder != lap.transponder) return false;
         if (lapNr != lap.lapNr) return false;
         if (lapTime != lap.lapTime) return false;
-        if (id != null ? !id.equals(lap.id) : lap.id != null) return false;
-        if (driver != null ? !driver.equals(lap.driver) : lap.driver != null) return false;
-        return time != null ? time.equals(lap.time) : lap.time == null;
+        return driver != null ? driver.equals(lap.driver) : lap.driver == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (driver != null ? driver.hashCode() : 0);
+        int result = driver != null ? driver.hashCode() : 0;
         result = 31 * result + (int) (transponder ^ (transponder >>> 32));
-        result = 31 * result + (int) (lapNr ^ (lapNr >>> 32));
+        result = 31 * result + lapNr;
         result = 31 * result + (int) (lapTime ^ (lapTime >>> 32));
-        result = 31 * result + (time != null ? time.hashCode() : 0);
         return result;
     }
 }

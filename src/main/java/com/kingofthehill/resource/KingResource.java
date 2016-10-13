@@ -2,12 +2,12 @@ package com.kingofthehill.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import com.kingofthehill.repository.Repository;
-import com.kingofthehill.repository.model.BestMinute;
-import com.kingofthehill.repository.model.Lap;
+import com.kingofthehill.repository.model.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +27,6 @@ public class KingResource {
     @POST
     @Timed
     public Response addLap(Lap lap) {
-        System.out.println("KingResource.addLap");
         repository.insert(lap);
         return Response.status(200).build();
 
@@ -35,15 +34,14 @@ public class KingResource {
 
     @GET
     @Timed
-    public List<Lap> getLaps() {
-        List<Lap> laps = repository.allLaps();
-        return laps;
+    public List<LapEntity> getLaps() {
+        return repository.allLaps();
     }
 
     @GET
     @Timed
     @Path("todays")
-    public List<Lap> getTodaysLaps() {
+    public List<LapEntity> getTodaysLaps() {
         return repository.getTodaysLaps();
     }
 
@@ -51,5 +49,26 @@ public class KingResource {
     @Path("todaysBestMinutes")
     public List<BestMinute> getTodaysBestMinutes() {
         return repository.getTodaysBestMinutes();
+    }
+
+    @GET
+    @Path("current")
+    public List<CurrentRow> getCurrents() {
+        return repository.getCurrents();
+    }
+
+    @GET
+    @Timed
+    @Path("bestMinutes")
+    public List<MinutesEntity> getBestMinutes() {
+        return repository.getBestMinutes();
+    }
+
+    @GET
+    @Timed
+    @Path("recalc")
+    public Integer reCalculate() {
+        repository.reCalculate();
+        return 1;
     }
 }

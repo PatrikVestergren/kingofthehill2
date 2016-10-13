@@ -1,29 +1,45 @@
 package com.kingofthehill.repository.model;
 
-/**
- * Created by patrik.vestergren on 2016-10-07.
- */
-public class BestMinute {
+import java.util.List;
+import java.util.stream.Collectors;
 
-    private final String driver;
+public class BestMinute implements Comparable<BestMinute> {
+
     private final long transponder;
-    private final String result;
+    private final int nrOfLaps;
+    private final long totalTime;
+    private final List<Integer> laps;
 
-    public BestMinute(String driver, long transponder, String result) {
-        this.driver = driver;
+    public BestMinute(long transponder, List<LapEntity> laps) {
         this.transponder = transponder;
-        this.result = result;
-    }
-
-    public String getDriver() {
-        return driver;
+        this.nrOfLaps = laps.size();
+        this.totalTime = laps.stream()
+                .mapToLong(LapEntity::getLapTime)
+                .sum();
+        this.laps = laps.stream().map(LapEntity::getId).collect(Collectors.toList());
+        System.out.println("BestMinute.BestMinute the ids are " + this.laps);
     }
 
     public long getTransponder() {
         return transponder;
     }
 
-    public String getResult() {
-        return result;
+    public int getNrOfLaps() {
+        return nrOfLaps;
+    }
+
+    public long getTotalTime() {
+        return totalTime;
+    }
+
+    public List<Integer> getLaps() {
+        return laps;
+    }
+
+    @Override
+    public int compareTo(BestMinute o) {
+        if (nrOfLaps == o.getNrOfLaps())
+            return Long.compare(totalTime, o.getTotalTime());
+        return Long.compare(o.getNrOfLaps(), nrOfLaps);
     }
 }

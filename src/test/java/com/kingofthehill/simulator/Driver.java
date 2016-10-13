@@ -31,7 +31,7 @@ public class Driver implements Runnable {
 
     public void run() {
         System.out.println(name + " -> go()");
-        long i = 1l;
+        int i = 1;
         while (!stopped) {
             Long lapTime = generateLapTime();
             ScheduledFuture<Lap> f = executor.schedule(work(i, lapTime), lapTime, TimeUnit.MILLISECONDS);
@@ -46,7 +46,7 @@ public class Driver implements Runnable {
         }
     }
 
-    private Callable<Lap> work(final long lapNr, final long lapTime) {
+    private Callable<Lap> work(final int lapNr, final long lapTime) {
         return () -> {
             Lap lap = new Lap(name, transponder, lapNr, lapTime);
             return lap;
