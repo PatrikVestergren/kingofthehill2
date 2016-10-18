@@ -1,0 +1,27 @@
+<body ng-app="KingApp" ng-controller="lapsController">
+<div class="container">
+    <div class = "panel-heading">
+        <h3>King of the Hill</h3>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>antal varv</th>
+            <th>förare</th>
+            <th>varvtid</th>
+            <th>bästa 3 varv</th>
+            <th>bästa 5 minuter</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="lap in laps">
+            <td>{{lap.nrOfLaps}}</td>
+            <td>{{lap.driver}}</td>
+            <td>{{lap.lapTime}}</td>
+            <td>{{lap.nLaps}}</td>
+            <td>{{lap.nMinutes}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>

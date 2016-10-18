@@ -9,7 +9,6 @@ import com.kingofthehill.repository.dao.KingDAO;
 import com.kingofthehill.repository.model.*;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -80,10 +79,10 @@ public class Repository {
     }
 
     private void updateName(Lap lap) {
-        Transponder t = dao.getTransponder(lap.getTransponder());
-        if (t == null) {
+        String name = dao.getNameFromTransponder(lap.getTransponder());
+        if (name == null) {
             dao.insertTransponder(lap.getTransponder(), lap.getDriver());
-        } else if (!t.getDriver().equals(lap.getDriver())) {
+        } else if (!name.equals(lap.getDriver())) {
             dao.updateTransponderName(lap.getTransponder(), lap.getDriver());
         }
     }
@@ -105,19 +104,21 @@ public class Repository {
         return res;
     }
 
-    public List<CurrentRow> getCurrents() {
+    public List<CurrentRacer> getCurrents() {
+
         List<LapEntity> laps = dao.getTodaysLaps();
         Map<Long, List<LapEntity>> grouped = laps.stream()
                 .collect(groupingBy(LapEntity::getTransponder, toList()));
 
-        List<CurrentRow> res = new ArrayList<>();
+        List<CurrentRacer> res = new ArrayList<>();
 
         grouped.forEach((k, v) -> {
             if (!v.isEmpty()) {
                 LapEntity head = v.get(0);
-                CurrentRow.CurrentRowBuilder c = CurrentRow.getBuilder()
-                        //.setDriver(head.getDriver())
+                CurrentRacer.CurrentRowBuilder c = CurrentRacer.getBuilder()
+                        .setDriver(dao.getNameFromTransponder(head.getTransponder()))
                         .setTransponder(head.getTransponder())
+                        .setLapTime(head.getLapTime())
                         .setNrOfLaps(v.size());
                 Optional<LapsHolder> l = lapsAlgorithm.getBestLaps(v);
                 if (l.isPresent()) {

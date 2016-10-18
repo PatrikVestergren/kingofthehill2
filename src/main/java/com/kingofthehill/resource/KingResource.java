@@ -7,7 +7,6 @@ import com.kingofthehill.repository.model.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -53,7 +52,7 @@ public class KingResource {
 
     @GET
     @Path("current")
-    public List<CurrentRow> getCurrents() {
+    public List<CurrentRacer> getCurrents() {
         return repository.getCurrents();
     }
 

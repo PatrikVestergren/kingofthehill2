@@ -1,0 +1,45 @@
+{
+  "name": "kingofthehill",
+  "version": "1.0.0",
+  "description": "RC timer app",
+  "main": "index.js",
+  "dependencies": {
+    "bower": "^1.7.9"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0",
+  "karma": "~1.3.0",
+  "karma-chrome-launcher": "^2.0.0",
+  "karma-firefox-launcher": "^1.0.0",
+  "karma-jasmine": "^0.0.2",
+  "karma-junit-reporter": "^1.1.0",
+  "protractor": "~1.0.0",
+  "shelljs": "^0.7.4"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "start": "http-server src/main/webapp -a localhost -p 8000",
+    "pretest": "npm install",
+    "test": "karma start src/test/javascript/karma.conf.js",
+    "test-single-run": "karma start src/test/javascript/karma.conf.js  --single-run",
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update",
+    "preprotractor": "npm run update-webdriver",
+    "protractor": "protractor src/test/javascript/protractor-conf.js",
+    "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + cat('src/main/webapp/vendor/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'src/main/webapp/index.html');\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatrikVestergren/kingofthehill2.git"
+  },
+  "keywords": [
+    "RC"
+  ],
+  "author": "Patrik Vestergren",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/PatrikVestergren/kingofthehill2/issues"
+  },
+  "homepage": "https://github.com/PatrikVestergren/kingofthehill2#readme"
+}

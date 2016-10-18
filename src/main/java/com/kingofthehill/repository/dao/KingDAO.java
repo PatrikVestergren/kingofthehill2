@@ -1,13 +1,11 @@
 package com.kingofthehill.repository.dao;
 
-import com.kingofthehill.repository.model.MinutesEntity;
+import com.kingofthehill.repository.mapper.CurrentRacerMapper;
+import com.kingofthehill.repository.model.*;
 import com.kingofthehill.repository.MinuteBinder;
 import com.kingofthehill.repository.mapper.LapEntityMapper;
 import com.kingofthehill.repository.mapper.MinutesMapper;
 import com.kingofthehill.repository.mapper.TransponderMapper;
-import com.kingofthehill.repository.model.BestMinute;
-import com.kingofthehill.repository.model.LapEntity;
-import com.kingofthehill.repository.model.Transponder;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
@@ -32,9 +30,8 @@ public interface KingDAO {
     @RegisterMapper(LapEntityMapper.class)
     List<LapEntity> getTodaysLapsFor(@Bind("transponder") long transponder);
 
-    @SqlQuery("select * from transponder where transponder = :transponder")
-    @RegisterMapper(TransponderMapper.class)
-    Transponder getTransponder(@Bind("transponder") long transponder);
+    @SqlQuery("select name from transponder where transponder = :transponder")
+    String getNameFromTransponder(@Bind("transponder") long transponder);
 
     @SqlUpdate("insert into transponder (transponder, name) values(:transponder, :name)")
     Integer insertTransponder(@Bind("transponder") long transponder, @Bind("name") String name);
@@ -59,5 +56,9 @@ public interface KingDAO {
     @SqlQuery("SELECT * FROM bestminutes WHERE transponder = :transponder")
     @RegisterMapper(MinutesMapper.class)
     List<MinutesEntity> getBestMinutesFor(@Bind("transponder") long transponder);
+
+    @SqlQuery("SELECT l.*, t.name FROM laps l JOIN transponder t ON a.transponder = t.transponder WHERE l.modTime > current_date - interval '1' day AND l.transponder = :transponder")
+    @RegisterMapper(CurrentRacerMapper.class)
+    List<CurrentRacer> getCurrentRacer(@Bind("transponder") long transponder);
 }
 
