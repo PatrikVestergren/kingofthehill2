@@ -47,6 +47,7 @@ public class Repository {
 
         List<LapEntity> laps = dao.getTodaysLapsFor(transponder);
         Optional<MinutesEntity> best = minutesAlgorithm.getBestMinutes(laps);
+        Optional<LapsHolder> bestLaps = lapsAlgorithm.getBestLaps(laps);
         System.out.println("best is: " + best);
         if (best.isPresent()) {
             System.out.println("best is present");
@@ -59,7 +60,16 @@ public class Repository {
             }
         }
 
-        WebsocketKing.sendMessage("Got lap " + lap.getLapNr());
+        CurrentRacer current = CurrentRacer.getBuilder()
+                .setDriver(lap.getDriver())
+                .setTransponder(lap.getTransponder())
+                .setLapTime(lap.getLapTime())
+                .setNrOfLaps(lap.getLapNr() > laps.size() ? lap.getLapNr() : laps.size())
+                .setnLaps(bestLaps.isPresent() ? bestLaps.get().toString() : "-")
+                .setnMinutes(best.isPresent() ? best.get().toString() : "-")
+                .build();
+
+        WebsocketKing.sendMessage(current);
     }
 
     private void createOrUpdate(MinutesEntity todays, MinutesEntity current) {

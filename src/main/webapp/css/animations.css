@@ -1,0 +1,14 @@
+.repeat-item.ng-enter {
+    animation-name: lap;
+    animation-duration: 2s;
+}
+
+
+@keyframes lap {
+    0% {
+        background-color: #ff0000; /* #b8d1f3;*/
+    }
+    100% {
+        background-color: #FFFFFF;
+    }
+}

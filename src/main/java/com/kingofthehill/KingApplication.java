@@ -1,5 +1,6 @@
 package com.kingofthehill;
 
+import be.tomcools.dropwizard.websocket.WebsocketBundle;
 import com.kingofthehill.repository.Repository;
 import com.kingofthehill.repository.dao.KingDAO;
 import com.kingofthehill.resource.KingResource;
@@ -20,6 +21,8 @@ import java.util.EnumSet;
  */
 public class KingApplication extends Application<KingoConfiguration> {
 
+    private WebsocketBundle websocket = new WebsocketBundle();
+
     public static void main(String[] args) throws Exception {
         new KingApplication().run(args);
     }
@@ -32,11 +35,14 @@ public class KingApplication extends Application<KingoConfiguration> {
     @Override
     public void initialize(Bootstrap<KingoConfiguration> bootstrap) {
         bootstrap.addBundle(new DBIExceptionsBundle());
+        bootstrap.addBundle(websocket);
     }
 
     public void run(KingoConfiguration configuration, Environment environment) throws Exception {
         final FilterRegistration.Dynamic cors =
                 environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        websocket.addEndpoint(WebsocketKing.class);
 
         // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");

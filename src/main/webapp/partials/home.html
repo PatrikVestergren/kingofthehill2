@@ -14,7 +14,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="lap in laps">
+        <tr class="repeat-item" ng-repeat="lap in laps | orderBy : '-nrOfLaps'">
             <td>{{lap.nrOfLaps}}</td>
             <td>{{lap.driver}}</td>
             <td>{{lap.lapTime}}</td>
