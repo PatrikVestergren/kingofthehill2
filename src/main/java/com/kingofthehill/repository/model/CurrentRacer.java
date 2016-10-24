@@ -9,6 +9,7 @@ public class CurrentRacer {
     private final long transponder;
     private final int nrOfLaps;
     private final String lapTime;
+    private final String fastLap;
     private final LocalDate lastPass;
     private final String nLaps;
     private final String nMinutes;
@@ -19,6 +20,7 @@ public class CurrentRacer {
         this.transponder = builder.transponder;
         this.nrOfLaps = builder.nrOfLaps;
         this.lapTime = lapFormat.format(builder.lapTime);
+        this.fastLap = lapFormat.format(builder.fastLap);
         this.lastPass = builder.lastPass;
         this.nLaps = builder.nLaps;
         this.nMinutes = builder.nMinutes;
@@ -38,6 +40,10 @@ public class CurrentRacer {
 
     public String getLapTime() {
         return lapTime;
+    }
+
+    public String getFastLap() {
+        return fastLap;
     }
 
     public LocalDate getLastPass() {
@@ -61,6 +67,7 @@ public class CurrentRacer {
         private long transponder;
         private int nrOfLaps;
         private long lapTime;
+        private long fastLap;
         private LocalDate lastPass;
         private String nLaps;
         private String nMinutes;
@@ -82,6 +89,11 @@ public class CurrentRacer {
 
         public CurrentRowBuilder setLapTime(long lapTime) {
             this.lapTime = lapTime;
+            return this;
+        }
+
+        public CurrentRowBuilder setFastLap(long fastLap) {
+            this.fastLap = fastLap;
             return this;
         }
 

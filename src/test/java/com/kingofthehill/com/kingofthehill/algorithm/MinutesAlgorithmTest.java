@@ -72,7 +72,6 @@ public class MinutesAlgorithmTest {
         MinutesEntity best = res.get();
         assertTrue(best.getNrOfLaps() == 5);
         assertTrue(best.getTotalTime() == 540000);
-        System.out.println(best);
     }
 
     @Test

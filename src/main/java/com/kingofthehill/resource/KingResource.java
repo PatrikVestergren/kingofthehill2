@@ -5,9 +5,12 @@ import com.kingofthehill.repository.Repository;
 import com.kingofthehill.repository.model.*;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import javax.ws.rs.container.AsyncResponse;
+
 
 /**
  * Created by patrik on 2016-06-18.
@@ -25,10 +28,21 @@ public class KingResource {
 
     @POST
     @Timed
-    public Response addLap(Lap lap) {
-        repository.insert(lap);
-        return Response.status(200).build();
-
+    public void addLap(Lap lap, @Suspended AsyncResponse response) {
+        new Thread() {
+            public void run() {
+                try {
+                    repository.insert(lap);
+                } catch (Exception ex) {
+                    response.resume(ex);
+                    return;
+                }
+                Response rsp = Response.ok(lap,
+                        MediaType.APPLICATION_JSON)
+                        .build();
+                response.resume(rsp);
+            }
+        }.start();
     }
 
     @GET

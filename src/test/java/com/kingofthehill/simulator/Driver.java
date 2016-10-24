@@ -1,6 +1,5 @@
 package com.kingofthehill.simulator;
 
-import com.fasterxml.jackson.core.JsonFactory;
 import com.kingofthehill.repository.model.Lap;
 
 import java.util.Random;
@@ -18,10 +17,8 @@ public class Driver implements Runnable {
     private final long avgLapTime;
     private boolean stopped;
     private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    private final JsonFactory factory = new JsonFactory();
 
     public Driver(final RestClient client, final String name, final long avgLapTime, final long transponder) {
-        System.out.println("Driver.Driver");
         this.client = client;
         this.name = name;
         this.avgLapTime = avgLapTime;
@@ -30,17 +27,13 @@ public class Driver implements Runnable {
     }
 
     public void run() {
-        System.out.println(name + " -> go()");
-        int i = 1;
+        int lapNr = 0;
         while (!stopped) {
             Long lapTime = generateLapTime();
-            ScheduledFuture<Lap> f = executor.schedule(work(i, lapTime), lapTime, TimeUnit.MILLISECONDS);
+            ScheduledFuture<Lap> f = executor.schedule(work(lapNr++, lapTime), lapTime, TimeUnit.MILLISECONDS);
             try {
-                Lap l = f.get();
-                System.out.println(l);
-                client.send(l);
-                i++;
-            } catch (InterruptedException | ExecutionException e) {
+                client.send(f.get());
+            } catch (Throwable e) {
                 e.printStackTrace();
             }
         }

@@ -17,7 +17,6 @@ public class BestMinute implements Comparable<BestMinute> {
                 .mapToLong(LapEntity::getLapTime)
                 .sum();
         this.laps = laps.stream().map(LapEntity::getId).collect(Collectors.toList());
-        System.out.println("BestMinute.BestMinute the ids are " + this.laps);
     }
 
     public long getTransponder() {

@@ -124,10 +124,16 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <executable>bower</executable>
+                    <!--executable>bower</executable>
                     <arguments>
                         <argument>install</argument>
-                    </arguments>
+                    </arguments-->
+                        <executable>cmd</executable> <!-- Windows -->
+                        <workingDirectory>./</workingDirectory>
+                        <arguments>
+                            <argument>/c</argument>
+                            <argument>"npm --version"</argument>
+                        </arguments>
                     <workingDirectory>${basedir}</workingDirectory>
                 </configuration>
             </plugin>

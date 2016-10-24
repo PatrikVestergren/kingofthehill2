@@ -1,5 +1,6 @@
 package com.kingofthehill.repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kingofthehill.WebsocketKing;
 import com.kingofthehill.com.kingofthehill.algorithm.LapsAlgorithm;
 import com.kingofthehill.com.kingofthehill.algorithm.LapsHolder;
@@ -39,7 +40,7 @@ public class Repository {
         return dao.allLaps();
     }
 
-    public void insert(Lap lap) {
+    public void insert(Lap lap) throws JsonProcessingException {
         long transponder = lap.getTransponder();
         dao.insertLap(transponder, lap.getLapNr(), lap.getLapTime());
 
@@ -48,9 +49,8 @@ public class Repository {
         List<LapEntity> laps = dao.getTodaysLapsFor(transponder);
         Optional<MinutesEntity> best = minutesAlgorithm.getBestMinutes(laps);
         Optional<LapsHolder> bestLaps = lapsAlgorithm.getBestLaps(laps);
-        System.out.println("best is: " + best);
+
         if (best.isPresent()) {
-            System.out.println("best is present");
             MinutesEntity todays = dao.getTodaysBestMinutesFor(transponder);
             MinutesEntity current = best.get();
             createOrUpdate(todays, current);
@@ -64,6 +64,7 @@ public class Repository {
                 .setDriver(lap.getDriver())
                 .setTransponder(lap.getTransponder())
                 .setLapTime(lap.getLapTime())
+                .setFastLap(laps.stream().mapToLong(x -> x.getLapTime()).min().getAsLong())
                 .setNrOfLaps(lap.getLapNr() > laps.size() ? lap.getLapNr() : laps.size())
                 .setnLaps(bestLaps.isPresent() ? bestLaps.get().toString() : "-")
                 .setnMinutes(best.isPresent() ? best.get().toString() : "-")
@@ -74,7 +75,6 @@ public class Repository {
 
     private void createOrUpdate(MinutesEntity todays, MinutesEntity current) {
         if (todays == null) {
-            System.out.println("GONNA INSERT");
             dao.insertBestMinutes(current);
         } else if (current.isBetterThan(todays)) {
             MinutesEntity clone = MinutesEntity.getCloneBuilder(todays)
@@ -83,7 +83,6 @@ public class Repository {
                     .setTotalTime(current.getTotalTime())
                     .setTime(Timestamp.valueOf(LocalDateTime.now()))
                     .build();
-            System.out.println("GONNA UPDATE");
             dao.updateBestMinutes(clone);
         }
     }
@@ -129,6 +128,7 @@ public class Repository {
                         .setDriver(dao.getNameFromTransponder(head.getTransponder()))
                         .setTransponder(head.getTransponder())
                         .setLapTime(head.getLapTime())
+                        .setFastLap(v.stream().mapToLong(x -> x.getLapTime()).min().getAsLong())
                         .setNrOfLaps(v.size());
                 Optional<LapsHolder> l = lapsAlgorithm.getBestLaps(v);
                 if (l.isPresent()) {
@@ -161,7 +161,6 @@ public class Repository {
             Optional<MinutesEntity> bestM = minutesAlgorithm.getBestMinutes(laps);
             if (bestM.isPresent()) {
                 Integer id = dao.insertBestMinutes(bestM.get());
-                System.out.println("Id: " + id);
             } // Do the same for best three laps
         });
     }

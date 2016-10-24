@@ -1,12 +1,12 @@
 package com.kingofthehill;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingofthehill.repository.model.CurrentRacer;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -38,11 +38,11 @@ public class WebsocketKing {
     }
 
 
-    public static void sendMessage(CurrentRacer data) {
+    public synchronized static void sendMessage(CurrentRacer data) throws JsonProcessingException {
+        String json = mapper.writeValueAsString(data);
         allSessions.forEach(s -> {
             try {
-                System.out.println("gonna send message");
-                s.getBasicRemote().sendText(mapper.writeValueAsString(data));
+                s.getBasicRemote().sendText(json);
             } catch (IOException e) {
                 e.printStackTrace();
             }
