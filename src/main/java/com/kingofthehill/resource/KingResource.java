@@ -1,6 +1,8 @@
 package com.kingofthehill.resource;
 
 import com.codahale.metrics.annotation.Timed;
+import com.kingofthehill.api.CurrentLap;
+import com.kingofthehill.api.CurrentRacer;
 import com.kingofthehill.repository.Repository;
 import com.kingofthehill.repository.model.*;
 
@@ -54,15 +56,16 @@ public class KingResource {
     @GET
     @Timed
     @Path("todays")
-    public List<LapEntity> getTodaysLaps() {
-        return repository.getTodaysLaps();
+    public List<CurrentLap> getTodaysLaps(@QueryParam("transponder") long transponder) {
+        System.out.println("KingResource.getTodaysLaps " + transponder);
+        return repository.getTodaysFor(transponder);
     }
 
-    @GET
-    @Path("todaysBestMinutes")
-    public List<BestMinute> getTodaysBestMinutes() {
-        return repository.getTodaysBestMinutes();
-    }
+//    @GET
+//    @Path("todaysBestMinutes")
+//    public List<BestMinute> getTodaysBestMinutes() {
+//        return repository.getTodaysBestMinutes();
+//    }
 
     @GET
     @Path("current")
@@ -70,12 +73,12 @@ public class KingResource {
         return repository.getCurrents();
     }
 
-    @GET
-    @Timed
-    @Path("bestMinutes")
-    public List<MinutesEntity> getBestMinutes() {
-        return repository.getBestMinutes();
-    }
+//    @GET
+//    @Timed
+//    @Path("bestMinutes")
+//    public List<BestEntity> getBestMinutes() {
+//        return repository.getBestMinutes();
+//    }
 
     @GET
     @Timed

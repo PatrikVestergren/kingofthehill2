@@ -11,7 +11,12 @@ app.config(function ($routeProvider) {
         .when('/', {
             templateUrl: "partials/home.html",
             controller: "lapsController"
-        }).otherwise({
-        redirectTo: '/'
-    });
+        })
+        .when('/todayfor/:transponder', {
+                templateUrl: "partials/todayfor.html",
+                controller: "todayfor"
+        })
+        .otherwise({
+                redirectTo: '/'
+        });
 });

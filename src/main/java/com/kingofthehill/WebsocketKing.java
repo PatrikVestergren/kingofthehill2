@@ -2,7 +2,7 @@ package com.kingofthehill;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingofthehill.repository.model.CurrentRacer;
+import com.kingofthehill.api.CurrentRacer;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;

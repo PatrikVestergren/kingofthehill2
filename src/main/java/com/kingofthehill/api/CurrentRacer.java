@@ -1,4 +1,4 @@
-package com.kingofthehill.repository.model;
+package com.kingofthehill.api;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

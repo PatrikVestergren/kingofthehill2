@@ -1,5 +1,6 @@
 package com.kingofthehill.com.kingofthehill.algorithm;
 
+import com.kingofthehill.repository.model.BestEntity;
 import com.kingofthehill.repository.model.LapEntity;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,28 +38,28 @@ public class LapsAlgorithmTest {
     @Test
     public void verifyBestLapsSimple() {
         List<LapEntity> laps = new ArrayList<>();
-        LapEntity l1 = new LapEntity(0, 0l, 1, 100000l, null);
-        LapEntity l2 = new LapEntity(0, 0l, 2, 100000l, null);
-        LapEntity l3 = new LapEntity(0, 0l, 3, 100000l, null);
+        LapEntity l1 = new LapEntity(1, 0l, 1, 100000l, null);
+        LapEntity l2 = new LapEntity(2, 0l, 2, 100000l, null);
+        LapEntity l3 = new LapEntity(3, 0l, 3, 100000l, null);
         laps.add(l1);
         laps.add(l2);
         laps.add(l3);
 
-        LapsHolder actual = algorithm.getBestLaps(laps).get();
+        BestEntity actual = algorithm.getBestLaps(laps).get();
         assertTrue(actual.getTotalTime() == 300000);
-        assertEquals(laps, actual.getLaps());
+        assertEquals(asList(1, 2, 3), actual.getLaps());
     }
 
     @Test
     public void verifyBestLaps() {
         List<LapEntity> laps = new ArrayList<>();
-        LapEntity l1 = new LapEntity(0, 0l, 1, 60000, null);
-        LapEntity l2 = new LapEntity(0, 0l, 2, 100000l, null);
-        LapEntity l3 = new LapEntity(0, 0l, 3, 200000l, null);
-        LapEntity l4 = new LapEntity(0, 0l, 4, 35000, null);
-        LapEntity l5 = new LapEntity(0, 0l, 5, 37000, null);
-        LapEntity l6 = new LapEntity(0, 0l, 6, 100000l, null);
-        LapEntity l7 = new LapEntity(0, 0l, 6, 600000l, null);
+        LapEntity l1 = new LapEntity(11, 0l, 1, 60000, null);
+        LapEntity l2 = new LapEntity(12, 0l, 2, 100000l, null);
+        LapEntity l3 = new LapEntity(13, 0l, 3, 200000l, null);
+        LapEntity l4 = new LapEntity(14, 0l, 4, 35000, null);
+        LapEntity l5 = new LapEntity(15, 0l, 5, 37000, null);
+        LapEntity l6 = new LapEntity(16, 0l, 6, 100000l, null);
+        LapEntity l7 = new LapEntity(17, 0l, 6, 600000l, null);
         laps.add(l1);
         laps.add(l2);
         laps.add(l3);
@@ -67,21 +68,21 @@ public class LapsAlgorithmTest {
         laps.add(l6);
         laps.add(l7);
 
-        LapsHolder actual = algorithm.getBestLaps(laps).get();
+        BestEntity actual = algorithm.getBestLaps(laps).get();
         assertTrue(actual.getTotalTime() == 172000);
-        assertEquals(asList(l4, l5, l6), actual.getLaps());
+        assertEquals(asList(14, 15, 16), actual.getLaps());
     }
 
     @Test
     public void verifyBestLapsAllSame() {
         List<LapEntity> laps = new ArrayList<>();
-        LapEntity l1 = new LapEntity(0, 0l, 1, 100000l, null);
-        LapEntity l2 = new LapEntity(0, 0l, 2, 100000l, null);
-        LapEntity l3 = new LapEntity(0, 0l, 3, 100000l, null);
-        LapEntity l4 = new LapEntity(0, 0l, 4, 100000l, null);
-        LapEntity l5 = new LapEntity(0, 0l, 5, 100000l, null);
-        LapEntity l6 = new LapEntity(0, 0l, 6, 100000l, null);
-        LapEntity l7 = new LapEntity(0, 0l, 7, 100000l, null);
+        LapEntity l1 = new LapEntity(11, 0l, 1, 100000l, null);
+        LapEntity l2 = new LapEntity(12, 0l, 2, 100000l, null);
+        LapEntity l3 = new LapEntity(13, 0l, 3, 100000l, null);
+        LapEntity l4 = new LapEntity(14, 0l, 4, 100000l, null);
+        LapEntity l5 = new LapEntity(15, 0l, 5, 100000l, null);
+        LapEntity l6 = new LapEntity(16, 0l, 6, 100000l, null);
+        LapEntity l7 = new LapEntity(17, 0l, 7, 100000l, null);
         laps.add(l1);
         laps.add(l2);
         laps.add(l3);
@@ -90,8 +91,9 @@ public class LapsAlgorithmTest {
         laps.add(l6);
         laps.add(l7);
 
-        LapsHolder actual = algorithm.getBestLaps(laps).get();
+        BestEntity actual = algorithm.getBestLaps(laps).get();
         assertTrue(actual.getTotalTime() == 300000);
-        assertEquals(asList(l1, l2, l3), actual.getLaps());
+        assertEquals(asList(11, 12, 13), actual.getLaps());
     }
+
 }

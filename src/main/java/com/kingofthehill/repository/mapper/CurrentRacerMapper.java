@@ -1,6 +1,7 @@
 package com.kingofthehill.repository.mapper;
 
-import com.kingofthehill.repository.model.CurrentRacer;
+import com.kingofthehill.Utils;
+import com.kingofthehill.api.CurrentRacer;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
@@ -19,17 +20,8 @@ public class CurrentRacerMapper implements ResultSetMapper<CurrentRacer> {
                 .setDriver(r.getString("name"))
                 .setTransponder(r.getLong("transponder"))
                 .setLapTime(r.getLong("laptime"))
-                .setLastPass(toLocalDate(r.getTimestamp("modtime")))
+                .setLastPass(Utils.toLocalDate(r.getTimestamp("modtime")))
                 .setNrOfLaps(0)
                 .build();
-    }
-
-    private LocalDate toLocalDate(Timestamp timestamp) {
-        if (timestamp == null) return null;
-        String pattern = "yyyy-MM-dd HH:mm";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        String dateStr = sdf.format(timestamp);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
-        return LocalDate.parse(dateStr, dtf);
     }
 }

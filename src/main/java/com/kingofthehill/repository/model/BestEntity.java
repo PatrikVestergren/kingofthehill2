@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class MinutesEntity implements Comparable<MinutesEntity> {
+public class BestEntity implements Comparable<BestEntity> {
 
     private final int id;
     private final long transponder;
@@ -16,20 +16,7 @@ public class MinutesEntity implements Comparable<MinutesEntity> {
     private final List<Integer> laps;
     private final Timestamp time;
 
-  /*  public MinutesEntity(int id, long transponder, int nrOfLaps, long totalTime, List<Integer> laps, Timestamp timestamp) {
-        this.id = id;
-        this.transponder = transponder;
-        this.nrOfLaps = nrOfLaps;
-        this.totalTime = totalTime;
-        this.laps = laps;
-        this.time = toLocalDate(timestamp);
-    }
-
-    public MinutesEntity(int bestminutesid, long transponder, int nroflaps, long totaltime, Array lapids, Timestamp modtime) throws SQLException {
-        this(bestminutesid, transponder, nroflaps, totaltime, Arrays.asList((Integer[]) lapids.getArray()), modtime);
-    }*/
-
-    public MinutesEntity(Builder builder) {
+    public BestEntity(Builder builder) {
         this.id = builder.id;
         this.transponder = builder.transponder;
         this.nrOfLaps = builder.nrOfLaps;
@@ -38,7 +25,7 @@ public class MinutesEntity implements Comparable<MinutesEntity> {
         this.time = builder.time;
     }
 
-    public static Builder getCloneBuilder(MinutesEntity entity) {
+    public static Builder getCloneBuilder(BestEntity entity) {
         return new Builder()
                 .setId(entity.getId())
                 .setTransponder(entity.getTransponder())
@@ -87,7 +74,7 @@ public class MinutesEntity implements Comparable<MinutesEntity> {
     }
 
     @Override
-    public int compareTo(MinutesEntity o) {
+    public int compareTo(BestEntity o) {
         if (nrOfLaps == o.getNrOfLaps())
             return Long.compare(totalTime, o.getTotalTime());
         return Long.compare(o.getNrOfLaps(), nrOfLaps);
@@ -98,7 +85,7 @@ public class MinutesEntity implements Comparable<MinutesEntity> {
         return nrOfLaps + "/" + lapFormat.format(totalTime);
     }
 
-    public boolean isBetterThan(MinutesEntity o) {
+    public boolean isBetterThan(BestEntity o) {
         if (nrOfLaps == o.getNrOfLaps())
             return totalTime < o.getTotalTime();
         return nrOfLaps > o.getNrOfLaps();
@@ -112,8 +99,8 @@ public class MinutesEntity implements Comparable<MinutesEntity> {
         private List<Integer> laps;
         private Timestamp time;
 
-        public MinutesEntity build() {
-            return new MinutesEntity(this);
+        public BestEntity build() {
+            return new BestEntity(this);
         }
 
         public Builder setId(int id) {

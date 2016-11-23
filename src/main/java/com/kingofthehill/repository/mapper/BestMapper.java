@@ -1,6 +1,6 @@
 package com.kingofthehill.repository.mapper;
 
-import com.kingofthehill.repository.model.MinutesEntity;
+import com.kingofthehill.repository.model.BestEntity;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-public class MinutesMapper implements ResultSetMapper<MinutesEntity> {
+public class BestMapper implements ResultSetMapper<BestEntity> {
     @Override
-    public MinutesEntity map(int index, ResultSet r, StatementContext ctx) throws SQLException {
-        return new MinutesEntity.Builder()
-                .setId(r.getInt("bestminutesid"))
+    public BestEntity map(int index, ResultSet r, StatementContext ctx) throws SQLException {
+        return new BestEntity.Builder()
+                .setId(r.getInt("id"))
                 .setTransponder(r.getLong("transponder"))
                 .setNrOfLaps(r.getInt("nroflaps"))
                 .setTotalTime(r.getLong("totaltime"))

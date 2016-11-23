@@ -6,9 +6,29 @@
 
 @keyframes lap {
     0% {
-        background-color: #ff0000; /* #b8d1f3;*/
+        background-color: #FF0000;/*#b8d1f3;*/
     }
     100% {
         background-color: #FFFFFF;
     }
+}
+
+tr.regular td {
+    background-color: #ffffff;
+}
+
+tr.bestlaps td {
+    background-color: #C1E1A6;
+}
+
+tr.bestminutes td {
+    background-color: #eed5b7;
+}
+
+tr.fastlap td {
+    background-color: #FF0000;
+}
+
+tr.break td {
+    background-color: #81898C;
 }

@@ -1,7 +1,7 @@
 package com.kingofthehill.com.kingofthehill.algorithm;
 
+import com.kingofthehill.repository.model.BestEntity;
 import com.kingofthehill.repository.model.LapEntity;
-import com.kingofthehill.repository.model.MinutesEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,22 +16,22 @@ public class MinutesAlgorithm {
         this.minutes = nrOfMinutes * 60 * 1000;
     }
 
-    public static List<MinutesEntity> getTopN(final int n, final List<MinutesEntity> laps) {
+    public static List<BestEntity> getTopN(final int n, final List<BestEntity> laps) {
         return laps.stream()
                 .sorted()
                 .limit(n)
                 .collect(Collectors.toList());
     }
 
-    public Optional<MinutesEntity> getBestMinutes(final List<LapEntity> input) {
+    public Optional<BestEntity> getBestMinutes(final List<LapEntity> input) {
         return subLaps(input).stream()
                 .sorted()
                 .findFirst();
     }
 
-    protected List<MinutesEntity> subLaps(final List<LapEntity> input) {
+    protected List<BestEntity> subLaps(final List<LapEntity> input) {
         List<LapEntity> laps = new ArrayList<>(input);
-        List<MinutesEntity> result = new ArrayList<>();
+        List<BestEntity> result = new ArrayList<>();
 
         while (!laps.isEmpty()) {
             List<LapEntity> sub = rec(new ArrayList<>(laps), 0, new ArrayList<>());
@@ -41,8 +41,8 @@ public class MinutesAlgorithm {
         return result;
     }
 
-    private MinutesEntity create(final List<LapEntity> sub) {
-        return new MinutesEntity.Builder()
+    private BestEntity create(final List<LapEntity> sub) {
+        return new BestEntity.Builder()
                 .setTransponder(sub.get(0).getTransponder())
                 .setLaps(sub.stream().map(LapEntity::getId).collect(Collectors.toList()))
                 .setNrOfLaps(sub.size())

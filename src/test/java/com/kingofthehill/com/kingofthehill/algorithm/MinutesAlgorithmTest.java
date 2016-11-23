@@ -4,9 +4,9 @@ package com.kingofthehill.com.kingofthehill.algorithm;
  * Created by patrikv on 08/04/16.
  */
 
+import com.kingofthehill.repository.model.BestEntity;
 import com.kingofthehill.repository.model.BestMinute;
 import com.kingofthehill.repository.model.LapEntity;
-import com.kingofthehill.repository.model.MinutesEntity;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -36,9 +36,9 @@ public class MinutesAlgorithmTest {
         List<LapEntity> laps = new ArrayList<>();
         LapEntity l1 = new LapEntity(0, 0l, 1, 300000l, null);
         laps.add(l1);
-        List<MinutesEntity> actual = new MinutesAlgorithm(5).subLaps(laps);
+        List<BestEntity> actual = new MinutesAlgorithm(5).subLaps(laps);
         assertTrue(actual.size() == 1);
-        MinutesEntity head = actual.get(0);
+        BestEntity head = actual.get(0);
         assertTrue(head.getNrOfLaps() == 1);
     }
 
@@ -53,7 +53,7 @@ public class MinutesAlgorithmTest {
         laps.add(l3);
         List<BestMinute> expected = new ArrayList<>();
         expected.add(new BestMinute(0l, laps));
-        List<MinutesEntity> actual = new MinutesAlgorithm(5).subLaps(laps);
+        List<BestEntity> actual = new MinutesAlgorithm(5).subLaps(laps);
         assertEquals(expected.size(), actual.size());
     }
 
@@ -68,8 +68,8 @@ public class MinutesAlgorithmTest {
         laps.add(new LapEntity(0, 0l, 5, 10000l, null));
         laps.add(new LapEntity(0, 0l, 6, 250000l, null));
 
-        Optional<MinutesEntity> res = new MinutesAlgorithm(5).getBestMinutes(laps);
-        MinutesEntity best = res.get();
+        Optional<BestEntity> res = new MinutesAlgorithm(5).getBestMinutes(laps);
+        BestEntity best = res.get();
         assertTrue(best.getNrOfLaps() == 5);
         assertTrue(best.getTotalTime() == 540000);
     }
@@ -98,18 +98,18 @@ public class MinutesAlgorithmTest {
         driver4.add(new LapEntity(0, 12399l, 1, 250000l, null));
         driver4.add(new LapEntity(0, 12399l, 2, 215000l, null));
 
-        Optional<MinutesEntity> dr1 = new MinutesAlgorithm(5).getBestMinutes(driver1);
-        Optional<MinutesEntity> dr2 = new MinutesAlgorithm(5).getBestMinutes(driver2);
-        Optional<MinutesEntity> dr3 = new MinutesAlgorithm(5).getBestMinutes(driver3);
-        Optional<MinutesEntity> dr4 = new MinutesAlgorithm(5).getBestMinutes(driver4);
+        Optional<BestEntity> dr1 = new MinutesAlgorithm(5).getBestMinutes(driver1);
+        Optional<BestEntity> dr2 = new MinutesAlgorithm(5).getBestMinutes(driver2);
+        Optional<BestEntity> dr3 = new MinutesAlgorithm(5).getBestMinutes(driver3);
+        Optional<BestEntity> dr4 = new MinutesAlgorithm(5).getBestMinutes(driver4);
 
-        List<MinutesEntity> minutes = new ArrayList<>();
+        List<BestEntity> minutes = new ArrayList<>();
         minutes.add(dr1.get());
         minutes.add(dr2.get());
         minutes.add(dr3.get());
         minutes.add(dr4.get());
 
-        List<MinutesEntity> topTen = MinutesAlgorithm.getTopN(10, minutes);
+        List<BestEntity> topTen = MinutesAlgorithm.getTopN(10, minutes);
         topTen.forEach(h -> System.out.println(h));
 
 

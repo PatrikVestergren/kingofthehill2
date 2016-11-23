@@ -14,21 +14,21 @@ CREATE TABLE laps (
 );
 
 CREATE TABLE bestMinutes (
-    BestMinutesId SERIAL NOT NULL,
+    id            SERIAL NOT NULL,
     Transponder   BIGINT NOT NULL,
     NrOfLaps      INTEGER,
     TotalTime     BIGINT,
     LapIDs        integer ARRAY,
     Modtime       TIMESTAMP NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT pk_bestMinutes PRIMARY KEY (BestMinutesId)
+    CONSTRAINT pk_bestMinutes PRIMARY KEY (id)
 );
 
 CREATE TABLE bestLaps (
-    BestLapsId  SERIAL NOT NULL,
+    id          SERIAL NOT NULL,
     Transponder BIGINT NOT NULL,
     NrOfLaps    INTEGER,
     TotalTime   BIGINT,
     LapIDs      integer ARRAY,
     Modtime     TIMESTAMP NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT pk_bestLaps PRIMARY KEY (BestLapsId)
+    CONSTRAINT pk_bestLaps PRIMARY KEY (id)
 );

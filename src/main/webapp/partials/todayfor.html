@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-app="KingApp" ng-controller="todayfor">
+<div class="container">
+    <div class="panel-heading">
+        <h3>King of the Hill [{{transponder}}]</h3>
+    </div>
+    
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>varv</th>
+            <th>varvtid</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="repeat-item {{lap.cssClass}}" ng-repeat="lap in todays">
+            <td>{{lap.lapNr}}</td>
+            <td>{{lap.lapTime}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

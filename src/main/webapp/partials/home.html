@@ -3,7 +3,7 @@
     <div class = "panel-heading">
         <h3>King of the Hill</h3>
     </div>
-    <table class="table table-condensed">
+    <table class="table table-condensed table-hover">
         <thead>
         <tr>
             <th>antal varv</th>
@@ -17,7 +17,7 @@
         <tbody>
         <tr class="repeat-item" ng-repeat="lap in laps | orderBy : '-nrOfLaps'">
             <td>{{lap.nrOfLaps}}</td>
-            <td>{{lap.driver}}</td>
+            <td><a href="#todayfor/{{lap.transponder}}">{{lap.driver}}</a></td>
             <td>{{lap.lapTime}}</td>
             <td>{{lap.fastLap}}</td>
             <td>{{lap.nLaps}}</td>
